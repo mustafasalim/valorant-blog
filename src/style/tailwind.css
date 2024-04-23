@@ -7,15 +7,21 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #fff;
+  background-color: #111111;
   border-radius: 5px;
   width: 1px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #991a25;
+  background: #fff;
 }
 
 ::-webkit-scrollbar-thumb:hover {
   background: rgb(228, 228, 228);
+}
+
+.font-kontur {
+  color: transparent;
+  -webkit-text-stroke: 2px #585858;
+  font-size: 12rem;
 }

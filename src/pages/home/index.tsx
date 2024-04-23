@@ -1,23 +1,24 @@
 import { motion, useTransform, useScroll } from "framer-motion"
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useRef } from "react"
 import { useNavigate } from "react-router-dom"
 
 const Home = () => {
-  const [scrollPosition, setScrollPosition] = useState<number>(0)
   const ref = useRef(null)
   const navigate = useNavigate()
   const { scrollYProgress } = useScroll({ target: ref })
   const scale = useTransform(scrollYProgress, [0, 1], [2, 350]) // Scroll yaptıkça büyütmek için kullanılacak scale
-  window.addEventListener("scroll", function () {
-    setScrollPosition(document.documentElement.scrollTop)
-  })
 
-  console.log(scrollPosition)
   useEffect(() => {
-    if (scrollPosition >= 973) {
-      navigate("/blog")
-    }
-  }, [scrollPosition])
+    window.addEventListener("scroll", function () {
+      var windowHeight = window.innerHeight
+      var fullHeight = document.body.scrollHeight
+      var scrollPosition = window.scrollY || document.documentElement.scrollTop
+
+      if (windowHeight + scrollPosition >= fullHeight) {
+        navigate("/agents")
+      }
+    })
+  }, [ref])
 
   return (
     <div
