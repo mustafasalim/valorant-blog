@@ -19,6 +19,8 @@ function Agents() {
   )
 
   console.log(data)
+  console.log(isLoading)
+  console.log(isError)
 
   return (
     <>
