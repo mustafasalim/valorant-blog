@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react"
 import { useNavigate } from "react-router-dom"
 
 const Home = () => {
-  const [scrollPosition, setScrollPosition] = useState<number>()
+  const [scrollPosition, setScrollPosition] = useState<number>(0)
   const ref = useRef(null)
   const navigate = useNavigate()
   const { scrollYProgress } = useScroll({ target: ref })
@@ -12,13 +12,12 @@ const Home = () => {
     setScrollPosition(document.documentElement.scrollTop)
   })
 
+  console.log(scrollPosition)
   useEffect(() => {
-    if (scrollPosition === 1890) {
+    if (scrollPosition >= 973) {
       navigate("/blog")
     }
   }, [scrollPosition])
-
-  console.log(scrollPosition)
 
   return (
     <div
