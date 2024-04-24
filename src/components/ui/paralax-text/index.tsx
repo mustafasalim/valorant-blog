@@ -13,9 +13,14 @@ import { wrap } from "framer-motion/dom"
 interface ParallaxProps {
   children: any
   baseVelocity: number
+  textColor: string
 }
 
-function ParallaxText({ children, baseVelocity = 100 }: ParallaxProps) {
+function ParallaxText({
+  children,
+  baseVelocity = 100,
+  textColor,
+}: ParallaxProps) {
   const baseX = useMotionValue(0)
   const { scrollY } = useScroll()
   const scrollVelocity = useVelocity(scrollY)
@@ -32,7 +37,7 @@ function ParallaxText({ children, baseVelocity = 100 }: ParallaxProps) {
    * have to replace for wrapping that works for you or dynamically
    * calculate
    */
-  const x = useTransform(baseX, (v) => `${wrap(50, -50, v)}%`)
+  const x = useTransform(baseX, (v) => `${wrap(50, -10, v)}%`)
 
   const directionFactor = useRef<number>(1)
   useAnimationFrame((t, delta) => {
@@ -61,16 +66,50 @@ function ParallaxText({ children, baseVelocity = 100 }: ParallaxProps) {
    * we have four children (100% / 4). This would also want deriving from the
    * dynamically generated number of children.
    */
+  console.log(textColor)
+
   return (
     <div className="overflow-hidden w-full tracking-tight leading-4 m-0 whitespace-nowrap flex flex-no-wrap">
       <motion.div
         className="font-semibold uppercase text-9xl flex whitespace-nowrap  "
         style={{ x }}
       >
-        <span className=" block mr-7 font-kontur">{children} </span>
-        <span className=" block mr-7 font-kontur">{children} </span>
-        <span className=" block mr-7 font-kontur">{children} </span>
-        <span className=" block mr-7 font-kontur">{children} </span>
+        <span
+          style={{
+            WebkitTextStroke: `1.5px #${textColor}`,
+            color: "transparent",
+          }}
+          className=" block mr-24 text-[16rem]"
+        >
+          {children}{" "}
+        </span>
+        <span
+          style={{
+            WebkitTextStroke: `1.5px #${textColor}`,
+            color: "transparent",
+          }}
+          className=" block mr-24 text-[16rem]"
+        >
+          {children}{" "}
+        </span>
+        <span
+          style={{
+            WebkitTextStroke: `1.5px #${textColor}`,
+            color: "transparent",
+          }}
+          className=" block mr-24 text-[16rem]"
+        >
+          {children}
+        </span>
+        <span
+          style={{
+            WebkitTextStroke: `1.5px #${textColor}`,
+            color: "transparent",
+          }}
+          className=" block mr-24 text-[16rem]"
+        >
+          {children}{" "}
+        </span>
       </motion.div>
     </div>
   )

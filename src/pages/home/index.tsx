@@ -1,12 +1,15 @@
+import { useEffect, useRef, useState } from "react"
 import { motion, useTransform, useScroll } from "framer-motion"
-import { useEffect, useRef } from "react"
 import { useNavigate } from "react-router-dom"
 
 const Home = () => {
   const ref = useRef(null)
+  const videoRef = useRef<HTMLVideoElement | null>(null)
   const navigate = useNavigate()
   const { scrollYProgress } = useScroll({ target: ref })
-  const scale = useTransform(scrollYProgress, [0, 1], [2, 350]) // Scroll yaptıkça büyütmek için kullanılacak scale
+  const scale = useTransform(scrollYProgress, [0, 1], [2, 750])
+
+  const [videoStarted, setVideoStarted] = useState(false)
 
   useEffect(() => {
     window.addEventListener("scroll", function () {
@@ -20,11 +23,37 @@ const Home = () => {
     })
   }, [ref])
 
+  useEffect(() => {
+    const handleScroll = () => {
+      if (videoRef.current && !videoStarted) {
+        const { top, bottom } = videoRef.current.getBoundingClientRect()
+        if (top >= 0 && bottom <= window.innerHeight) {
+          videoRef.current.play()
+          setVideoStarted(true)
+        }
+      }
+    }
+
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [videoStarted])
+
   return (
     <div
       ref={ref}
       className="w-full h-[300vh] flex bg-[#FF4655]"
     >
+      <video
+        ref={videoRef}
+        autoPlay
+        muted
+        loop
+        className="w-full h-[100vh] object-cover"
+        width="100%"
+        height="100%"
+      >
+        <source src="https://assets.contentstack.io/v3/assets/bltb6530b271fddd0b1/blt29d7c4f6bc077e9e/5eb26f54402b8b4d13a56656/agent-background-generic.mp4" />
+      </video>
       <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ">
         <motion.div style={{ scale }}>
           <motion.div

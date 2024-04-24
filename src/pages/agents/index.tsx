@@ -4,6 +4,8 @@ import { motion } from "framer-motion"
 import { getAgents } from "../../services/valorant-services"
 import Image from "../../components/ui/image"
 import ParallaxText from "../../components/ui/paralax-text"
+import AgentsSkillsCard from "../../components/shread/agents-skill-card"
+import { MdOutlineKeyboardDoubleArrowLeft } from "react-icons/md"
 
 function Agents() {
   const { scrollYProgress } = useScroll()
@@ -22,6 +24,11 @@ function Agents() {
   console.log(isLoading)
   console.log(isError)
 
+  //istege gore aktif edilebilir
+  // if (isLoading) {
+  //   return <Loading />
+  // }
+
   return (
     <>
       <motion.div
@@ -29,27 +36,53 @@ function Agents() {
         animate={{ opacity: 2 }}
         exit={{ opacity: 0 }}
         transition={{ ease: "easeOut", duration: 1.5 }}
-        className="bg-white"
+        className="bg-[#ECE8E1] "
       >
+        <motion.div className="fixed top-10 right-10 flex flex-col">
+          <span className="text-6xl font-thin">AGENTS</span>
+          <div className="w-full h-0.5 bg-red-500"></div>
+        </motion.div>
         {data &&
           data.map((item: any) => (
-            <div className="relative flex items-center justify-center overflow-hidden">
+            <div
+              style={{ scrollSnapAlign: "center" }}
+              className="relative flex items-center justify-center overflow-hidden"
+            >
               <motion.div
-                whileHover={{ scale: [null, 1.1, 1.1] }}
-                transition={{ duration: 0.8 }}
-                className="z-30 ml-56 cursor-pointer"
+                whileHover={{ scale: [null, 1.03, 1.03], x: 100 }}
+                transition={{ ease: "easeOut", duration: 1 }}
+                className="z-30 ml-56 cursor-pointer "
               >
                 <Image image={item.fullPortrait} />
               </motion.div>
-              <div className=" bg-red-500 absolute left-0 z-50">
-                <img
-                  src={item.background}
-                  alt=""
-                />
-              </div>
+              <motion.div
+                animate={{ x: 20 }}
+                transition={{
+                  ease: "linear",
+                  repeat: Infinity,
+                  repeatType: "reverse",
+                  duration: 1,
+                }}
+                className="text-4xl absolute top-5 "
+              >
+                <MdOutlineKeyboardDoubleArrowLeft />
+              </motion.div>
+
+              <AgentsSkillsCard
+                backgroundColor={item.backgroundGradientColors[1]}
+                backgroundImage={item.background}
+              />
               <div className="absolute z-20 ">
-                <ParallaxText baseVelocity={5}>{item.displayName}</ParallaxText>
-                <ParallaxText baseVelocity={-5}>
+                <ParallaxText
+                  textColor={item.backgroundGradientColors[3]}
+                  baseVelocity={5}
+                >
+                  {item.displayName}
+                </ParallaxText>
+                <ParallaxText
+                  textColor={item.backgroundGradientColors[3]}
+                  baseVelocity={-5}
+                >
                   {item.displayName}
                 </ParallaxText>
               </div>
@@ -57,7 +90,7 @@ function Agents() {
           ))}
       </motion.div>
       <motion.div
-        className="fixed left-0 right-0 h-5 bg-var(--accent) bottom-100"
+        className="z-50 fixed bottom-0 left-0 right-0 top-0 h-2 bg-[#0F1923] "
         style={{ scaleX }}
       />
     </>

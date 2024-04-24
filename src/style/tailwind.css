@@ -2,10 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  font-family: "Big Shoulders Display", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 100;
+  font-style: normal;
+  cursor: crosshair;
+  scroll-snap-type: y mandatory !important;
+}
 ::-webkit-scrollbar {
   width: 8px;
 }
-
 ::-webkit-scrollbar-thumb {
   background-color: #111111;
   border-radius: 5px;
@@ -18,10 +25,4 @@
 
 ::-webkit-scrollbar-thumb:hover {
   background: rgb(228, 228, 228);
-}
-
-.font-kontur {
-  color: transparent;
-  -webkit-text-stroke: 2px #585858;
-  font-size: 12rem;
 }
