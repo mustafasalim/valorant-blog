@@ -4,7 +4,6 @@ import { motion } from "framer-motion"
 interface ImageProps {
   image: string
 }
-
 function Image({ image }: ImageProps) {
   const ref = useRef(null)
 

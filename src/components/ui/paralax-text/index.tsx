@@ -14,12 +14,14 @@ interface ParallaxProps {
   children: any
   baseVelocity: number
   textColor: string
+  fontSize: string
 }
 
 function ParallaxText({
   children,
   baseVelocity = 100,
   textColor,
+  fontSize,
 }: ParallaxProps) {
   const baseX = useMotionValue(0)
   const { scrollY } = useScroll()
@@ -42,7 +44,6 @@ function ParallaxText({
   const directionFactor = useRef<number>(1)
   useAnimationFrame((t, delta) => {
     let moveBy = directionFactor.current * baseVelocity * (delta / 1000)
-    console.log(t)
 
     /**
      * This is what changes the direction of the scroll once we
@@ -66,7 +67,6 @@ function ParallaxText({
    * we have four children (100% / 4). This would also want deriving from the
    * dynamically generated number of children.
    */
-  console.log(textColor)
 
   return (
     <div className="overflow-hidden w-full tracking-tight leading-4 m-0 whitespace-nowrap flex flex-no-wrap">
@@ -78,8 +78,9 @@ function ParallaxText({
           style={{
             WebkitTextStroke: `1.5px #${textColor}`,
             color: "transparent",
+            fontSize: `${fontSize}rem`,
           }}
-          className=" block mr-24 text-[16rem]"
+          className=" block mr-24 "
         >
           {children}{" "}
         </span>
@@ -87,8 +88,9 @@ function ParallaxText({
           style={{
             WebkitTextStroke: `1.5px #${textColor}`,
             color: "transparent",
+            fontSize: `${fontSize}rem`,
           }}
-          className=" block mr-24 text-[16rem]"
+          className=" block mr-24 "
         >
           {children}{" "}
         </span>
@@ -96,8 +98,9 @@ function ParallaxText({
           style={{
             WebkitTextStroke: `1.5px #${textColor}`,
             color: "transparent",
+            fontSize: `${fontSize}rem`,
           }}
-          className=" block mr-24 text-[16rem]"
+          className=" block mr-24 "
         >
           {children}
         </span>
@@ -105,8 +108,9 @@ function ParallaxText({
           style={{
             WebkitTextStroke: `1.5px #${textColor}`,
             color: "transparent",
+            fontSize: `${fontSize}rem`,
           }}
-          className=" block mr-24 text-[16rem]"
+          className=" block mr-24 "
         >
           {children}{" "}
         </span>

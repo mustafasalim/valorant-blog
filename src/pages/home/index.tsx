@@ -18,7 +18,9 @@ const Home = () => {
       var scrollPosition = window.scrollY || document.documentElement.scrollTop
 
       if (windowHeight + scrollPosition >= fullHeight) {
-        navigate("/agents")
+        setTimeout(() => {
+          navigate("/agents")
+        }, 1000)
       }
     })
   }, [ref])

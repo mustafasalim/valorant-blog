@@ -10,3 +10,11 @@ export const getAgents = async () => {
   })
   return response.data.data
 }
+
+export const getWeapons = async () => {
+  const response = await api({
+    method: "get",
+    url: "/weapons",
+  })
+  return response.data.data
+}

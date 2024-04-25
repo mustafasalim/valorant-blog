@@ -43,14 +43,15 @@ function Agents() {
           <div className="w-full h-0.5 bg-red-500"></div>
         </motion.div>
         {data &&
-          data.map((item: any) => (
+          data.map((item: any, index: number) => (
             <div
+              key={index}
               style={{ scrollSnapAlign: "center" }}
               className="relative flex items-center justify-center overflow-hidden"
             >
               <motion.div
                 whileHover={{ scale: [null, 1.03, 1.03], x: 100 }}
-                transition={{ ease: "easeOut", duration: 1 }}
+                transition={{ ease: "easeOut", duration: 0.5 }}
                 className="z-30 ml-56 cursor-pointer "
               >
                 <Image image={item.fullPortrait} />
@@ -71,15 +72,19 @@ function Agents() {
               <AgentsSkillsCard
                 backgroundColor={item.backgroundGradientColors[1]}
                 backgroundImage={item.background}
+                skills={item.abilities}
+                agentDescription={item.description}
               />
               <div className="absolute z-20 ">
                 <ParallaxText
+                  fontSize="16"
                   textColor={item.backgroundGradientColors[3]}
                   baseVelocity={5}
                 >
                   {item.displayName}
                 </ParallaxText>
                 <ParallaxText
+                  fontSize="16"
                   textColor={item.backgroundGradientColors[3]}
                   baseVelocity={-5}
                 >
